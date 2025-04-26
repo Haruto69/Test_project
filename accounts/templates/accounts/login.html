@@ -1,0 +1,61 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-header">
+        <h2>Welcome Back</h2>
+        <p>Please enter your credentials to login</p>
+    </div>
+
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <div class="float-label {% if form.username.value %}active{% endif %}">
+                <label for="username_input">Username</label>
+            </div>
+            <input 
+                type="text" 
+                id="username_input"
+                name="username" 
+                required
+                autocomplete="username"
+                {% if form.username.value %}value="{{ form.username.value }}"{% endif %}
+            >
+        </div>
+
+        <div class="form-group">
+            <div class="float-label">
+                <label for="password_input">Password</label>
+            </div>
+            <div class="password-wrapper">
+                <input 
+                    type="password" 
+                    id="password_input"
+                    name="password" 
+                    required
+                    autocomplete="current-password"
+                >
+                <span class="password-toggle">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </div>
+        </div>
+
+        {% if form.errors %}
+        <div class="error-message">
+            Invalid username or password. Please try again.
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn">
+            Login
+        </button>
+    </form>
+
+    <div class="auth-footer">
+        Don't have an account? <a href="{% url 'register' %}" class="text-blue-500 hover:text-blue-700">Sign up</a>
+    </div>
+</div>
+{% endblock %}

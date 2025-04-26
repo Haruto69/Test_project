@@ -1,0 +1,50 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="text-center">
+        <!-- Animated Welcome Message -->
+        <h1 class="text-4xl font-bold mb-4 animate-fade-in">
+            Welcome, <span class="text-blue-600">{{ username }}</span>! 👋
+        </h1>
+        
+        <p class="text-gray-600 mb-8">
+            You're now securely logged in to your account.
+        </p>
+
+        <!-- Secure Logout Form -->
+        <form action="{% url 'logout' %}" method="post" class="inline-block">
+            {% csrf_token %}
+            <button type="submit" 
+                    class="btn-primary hover:bg-red-600 transform hover:scale-105 transition-all"
+                    onclick="this.classList.add('processing')">
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                <span class="logout-text">Logout</span>
+                <span class="btn-loader hidden"></span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Custom Animations */
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.6s ease-out;
+    }
+</style>
+
+<script>
+    // Add loading state to logout button
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const btn = this.querySelector('button');
+        btn.disabled = true;
+        btn.querySelector('.logout-text').classList.add('hidden');
+        btn.querySelector('.btn-loader').classList.remove('hidden');
+    });
+</script>
+{% endblock %}
