@@ -55,15 +55,13 @@ C:.
 └───js
 app.js
 
-````
-
 ## 🧩 Setup Instructions
 
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/yourusername/django-auth-system.git
    cd Test_project-main
-````
+   ```
 
 2. **Create and activate a virtual environment:**
 
